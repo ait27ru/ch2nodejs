@@ -2,14 +2,13 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 
-const defaultPort = 3000;
-
 if (!process.env.PORT) {
-  console.log(
-    `Using the default port ${defaultPort}. To override it, create an environment variable PORT.`
+  console.error(
+    "VideoStreaming: Environment variable PORT doesn't exist. Create it before launching the microservice."
   );
+  return;
 }
-const port = process.env.PORT || defaultPort;
+const port = process.env.PORT;
 
 app.get("/video", (reg, res) => {
   const path = "videos/SampleVideo_1280x720_1mb.mp4";
@@ -28,5 +27,5 @@ app.get("/video", (reg, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`XXListening on http://localhost:${port}/video`);
+  console.log(`Listening on http://localhost:${port}/video`);
 });
